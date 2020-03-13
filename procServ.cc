@@ -918,7 +918,7 @@ void openLogFile()
 void writeInfoFile(const std::string& infofile)
 {
     std::ofstream info(infofile.c_str());
-    info<<"pid:"<<getpid()<<"\n";
+    info<<"PID="<<getpid()<<"\n";
     for(connectionItem *it = connectionItem::head; it; it=it->next)
         it->writeAddress(info);
 }

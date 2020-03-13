@@ -45,6 +45,11 @@ struct acceptItemTCP : public acceptItem
         char buf[40] = "";
         inet_ntop(addr.sin_family, &addr.sin_addr, buf, sizeof(buf));
         buf[sizeof(buf)-1] = '\0';
+        if(_readonly) {
+            fp<<"LOG=";
+        } else {
+            fp<<"CTL=";
+        }
         fp<<"tcp:"<<buf<<":"<<ntohs(addr.sin_port)<<"\n";
     }
 };
@@ -65,6 +70,11 @@ struct acceptItemUNIX : public acceptItem
     virtual void remakeConnection();
 
     virtual void writeAddress(std::ostream& fp) {
+        if(_readonly) {
+            fp<<"LOG=";
+        } else {
+            fp<<"CTL=";
+        }
         if(abstract) {
             fp<<"unix:@"<<&addr.sun_path[1]<<"\n";
         } else {
